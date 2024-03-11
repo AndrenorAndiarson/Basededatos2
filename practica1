@@ -1,0 +1,23 @@
+1.1.7.3 Subconsultas con IN y NOT IN
+12. Devuelve los nombres de los fabricantes que tienen productos asociados. (Utilizando IN o NOT IN).
+SELECT fabricante.nombre FROM fabricante
+WHERE fabricante.id IN (SELECT fabricante.id FROM producto);
+13. Devuelve los nombres de los fabricantes que no tienen productos asociados. (Utilizando IN o NOT IN).
+SELECT fabricante.nombre FROM fabricante
+WHERE fabricante.id NOT IN (SELECT producto.id_fabricante FROM producto);
+1.1.7.4 Subconsultas con EXISTS y NOT EXISTS
+14. Devuelve los nombres de los fabricantes que tienen productos asociados. (Utilizando EXISTS o NOT EXISTS).
+SELECT fabricante.nombre FROM fabricante
+WHERE EXISTS (SELECT 1 FROM producto WHERE producto.id_fabricante =fabricante.id);
+15. Devuelve los nombres de los fabricantes que no tienen productos asociados. (Utilizando EXISTS o NOT EXISTS).
+SELECT fabricante.nombre FROM fabricante
+WHERE NOT EXISTS (SELECT 1 FROM producto WHERE producto.id_fabricante =fabricante.id);
+1.1.7.5 Subconsultas correlacionadas
+16. Lista el nombre de cada fabricante con el nombre y el precio de su producto más caro.
+SELECT fabricante.nombre, producto.nombre,producto.precio FROM fabricante, producto
+WHERE producto.id_fabricante=fabricante.id AND producto.precio=(SELECT MAX(producto.precio) FROM producto WHERE fabricante.id=producto.id_fabricante)
+17. Devuelve un listado de todos los productos que tienen un precio mayor o igual a la media de todos los productos de su mismo fabricante.
+
+18. Lista el nombre del producto más caro del fabricante Lenovo.
+1.1.8 Subconsultas (En la cláusula HAVING)
+19. Devuelve un listado con todos los nombres de los fabricantes que tienen el mismo número de productos que el fabricante Lenovo.
