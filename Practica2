@@ -3,27 +3,29 @@
 1. Devuelve un listado con todos los empleados que tiene el departamento de Sistemas. (Sin
 utilizar INNER JOIN).
 SELECT departamento.nombre,departamento.presupuesto FROM departamento WHERE departamento.presupuesto=(SELECT MAX(departamento.presupuesto) FROM departamento WHERE departamento.nombre='Sistemas')
-2. Devuelve el nombre del departamento con mayor presupuesto y la cantidad que tiene
-asignada.
-
+2. Devuelve el nombre del departamento con mayor presupuesto y la cantidad que tiene asignada.
+SELECT departamento.nombre,departamento.presupuesto FROM departamento WHERE departamento.presupuesto=(SELECT MAX(departamento.presupuesto) FROM departamento)
 3. Devuelve el nombre del departamento con menor presupuesto y la cantidad que tiene
 asignada.
-
+SELECT departamento.nombre,departamento.presupuesto FROM departamento WHERE departamento.presupuesto=(SELECT MIN(departamento.presupuesto) FROM departamento)
 1.2.7.2 Subconsultas con ALL y ANY
 4. Devuelve el nombre del departamento con mayor presupuesto y la cantidad que tiene
 asignada. Sin hacer uso de MAX, ORDER BY ni LIMIT.
-SELECT * FROM empleado WHERE empleado.id_departamento=(SELECT departamento.id FROM departamento WHERE departamento.id=2)
+SELECT * FROM departamento WHERE departamento.presupuesto >= ALL(SELECT departamento.presupuesto FROM departamento)
 5. Devuelve el nombre del departamento con menor presupuesto y la cantidad que tiene
 asignada. Sin hacer uso de MIN, ORDER BY ni LIMIT.
 SELECT departamento.nombre,departamento.presupuesto FROM departamento WHERE departamento.presupuesto<=ALL(SELECT departamento.presupuesto FROM departamento)
 6. Devuelve los nombres de los departamentos que tienen empleados asociados.
-
+SELECT * FROM departamento WHERE departamento.id = Any(SELECT empleado.id_departamento FROM empleado)
 (Utilizando ALL o ANY).
 7. Devuelve los nombres de los departamentos que no tienen empleados asociados.
 (Utilizando ALL o ANY).
+SELECT * FROM departamento WHERE departamento.id != ANY(SELECT empleado.id_departamento FROM empleado)
 1.2.7.3 Subconsultas con IN y NOT IN
 8. Devuelve los nombres de los departamentos que tienen empleados asociados.
 (Utilizando IN o NOT IN).
+
+
 9. Devuelve los nombres de los departamentos que no tienen empleados asociados.
 (Utilizando IN o NOT IN).
 1.2.7.4 Subconsultas con EXISTS y NOT EXISTS
