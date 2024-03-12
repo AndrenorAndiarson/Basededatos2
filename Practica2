@@ -24,10 +24,11 @@ SELECT * FROM departamento WHERE departamento.id != ANY(SELECT empleado.id_depar
 1.2.7.3 Subconsultas con IN y NOT IN
 8. Devuelve los nombres de los departamentos que tienen empleados asociados.
 (Utilizando IN o NOT IN).
-
-
+SELECT departamento.nombre FROM departamento
+WHERE departamento.id IN (SELECT empleado.id_departamento FROM empleado);
 9. Devuelve los nombres de los departamentos que no tienen empleados asociados.
 (Utilizando IN o NOT IN).
+
 1.2.7.4 Subconsultas con EXISTS y NOT EXISTS
 10. Devuelve los nombres de los departamentos que tienen empleados asociados.
 (Utilizando EXISTS o NOT EXISTS).
