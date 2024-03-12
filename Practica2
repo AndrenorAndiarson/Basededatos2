@@ -2,18 +2,22 @@
 1.2.7.1 Con operadores básicos de comparación
 1. Devuelve un listado con todos los empleados que tiene el departamento de Sistemas. (Sin
 utilizar INNER JOIN).
-SELECT * FROM empleado WHERE empleado.id_departamento=(SELECT departamento.id FROM departamento WHERE departamento.id=2)
+SELECT departamento.nombre,departamento.presupuesto FROM departamento WHERE departamento.presupuesto=(SELECT MAX(departamento.presupuesto) FROM departamento WHERE departamento.nombre='Sistemas')
 2. Devuelve el nombre del departamento con mayor presupuesto y la cantidad que tiene
 asignada.
 
 3. Devuelve el nombre del departamento con menor presupuesto y la cantidad que tiene
 asignada.
+
 1.2.7.2 Subconsultas con ALL y ANY
 4. Devuelve el nombre del departamento con mayor presupuesto y la cantidad que tiene
 asignada. Sin hacer uso de MAX, ORDER BY ni LIMIT.
+SELECT * FROM empleado WHERE empleado.id_departamento=(SELECT departamento.id FROM departamento WHERE departamento.id=2)
 5. Devuelve el nombre del departamento con menor presupuesto y la cantidad que tiene
 asignada. Sin hacer uso de MIN, ORDER BY ni LIMIT.
+SELECT departamento.nombre,departamento.presupuesto FROM departamento WHERE departamento.presupuesto<=ALL(SELECT departamento.presupuesto FROM departamento)
 6. Devuelve los nombres de los departamentos que tienen empleados asociados.
+
 (Utilizando ALL o ANY).
 7. Devuelve los nombres de los departamentos que no tienen empleados asociados.
 (Utilizando ALL o ANY).
