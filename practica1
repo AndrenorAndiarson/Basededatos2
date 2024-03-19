@@ -23,5 +23,9 @@ WHERE producto.precio>=(SELECT AVG(producto.precio) FROM producto WHERE fabrican
 SELECT fabricante.nombre, producto.nombre,producto.precio FROM producto, fabricante WHERE fabricante.id=(SELECT fabricante.id FROM fabricante WHERE fabricante.nombre='Lenovo') AND producto.precio=(SELECT MAX(producto.precio) FROM producto WHERE fabricante.id=(SELECT fabricante.id FROM fabricante WHERE fabricante.nombre='Lenovo'));
 1.1.8 Subconsultas (En la cláusula HAVING)
 19. Devuelve un listado con todos los nombres de los fabricantes que tienen el mismo número de productos que el fabricante Lenovo.
-SELECT fabricante.nombre FROM fabricante WHERE (SELECT COUNT(*) FROM producto WHERE producto.id_fabricante = fabricante.id)=(SELECT COUNT(*)
-    FROM producto WHERE producto.id_fabricante = (SELECT id FROM fabricante WHERE nombre = 'Lenovo')) AND fabricante.nombre <> 'Lenovo';
+SELECT(SELECT fabricante.nombre FROM fabricante WHERE id=id_fabricante) AS n,
+ COUNT(producto.id_fabricante),producto.id_fabricante FROM producto
+GROUP BY producto.id_fabricante
+HAVING COUNT(producto.id_fabricante)=(
+    SELECT COUNT(id) FROM producto WHERE producto.id_fabricante =
+(SELECT id FROM fabricante WHERE nombre="Lenovo"))
